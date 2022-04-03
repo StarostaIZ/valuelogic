@@ -39,6 +39,10 @@ function loopThroughParamsObject(stdClass $paramsArray, stdClass $baseParamsArra
         if (is_object($item)) {
             loopThroughParamsObject($item, $baseParamsArray->{$key}, $i, $base);
         } else {
+            if (!is_array($item)) {
+                echo "Invalid config file data, properties should be an array!\n";
+                die();
+            }
             foreach ($item as $singleConfig) {
                 $prev = $baseParamsArray->{$key};
                 $baseParamsArray->{$key} = $singleConfig;

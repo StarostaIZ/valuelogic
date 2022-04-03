@@ -20,11 +20,18 @@ class TestCopyConfig extends TestCase
         $this->assertEquals("Invalid file paths!", $output[0]);
     }
 
-    public function testCommandWithInvalidParameters()
+    public function testCommandWithInvalidParameterKey()
     {
         exec("php ../copy_config.php " . __DIR__ . "/data/base_config.json " . __DIR__ . "/data/invalid_parameters.json", $output, $resultCode);
         $this->assertEquals(0, $resultCode);
         $this->assertEquals("Invalid config file data, key not exist!", $output[0]);
+    }
+
+    public function testCommandWithInvalidParameterNotArray()
+    {
+        exec("php ../copy_config.php " . __DIR__ . "/data/base_config.json " . __DIR__ . "/data/invalid_parameters_array.json", $output, $resultCode);
+        $this->assertEquals(0, $resultCode);
+        $this->assertEquals("Invalid config file data, properties should be an array!", $output[0]);
     }
 
     public function testCommandWithValidParameters()
@@ -50,6 +57,9 @@ class TestCopyConfig extends TestCase
 
     public static function tearDownAfterClass(): void
     {
+        if (!is_dir(__DIR__ . '/test_output')) {
+            return;
+        }
         array_map('unlink', array_filter((array)glob(__DIR__ . '/test_output/*')));
         rmdir(__DIR__ . '/test_output');
     }
