@@ -1,0 +1,7 @@
+{
+  "strategy_index": 1,
+  "details": {
+    "threshold": 0.5,
+    "buffer_size": 6
+  }
+}

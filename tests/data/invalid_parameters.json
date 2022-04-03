@@ -1,0 +1,6 @@
+{
+  "details": {
+    "buffer_size": [2, 3, 6],
+    "not_existing_param": [1,2]
+  }
+}
